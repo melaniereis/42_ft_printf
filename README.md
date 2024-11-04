@@ -1,8 +1,8 @@
 # 🌟 42_ft_printf
 
 <div align="center">
-
-![C Logo](https://upload.wikimedia.org/wikipedia/commons/1/19/C_Programming_Language.svg)  <!-- C Programming Language Logo -->
+   
+![Animated Printf Logo](https://media.giphy.com/media/3o7buirY5p1u8S9Y5e/giphy.gif)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Norminette](https://img.shields.io/badge/norminette-passing-brightgreen.svg)](https://github.com/42School/norminette)
