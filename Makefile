@@ -3,8 +3,8 @@
 #==============================================================================#
 
 # Main target names
-NAME = libft.a
-EXEC = libft_tester.out
+NAME = libft_printf.a
+EXEC = libft_printf.out
 
 #------------------------------------------------------------------------------#
 #                                COLORS & STYLES                                #
@@ -35,7 +35,7 @@ BOOK = 📚
 SPARKLES = ✨
 
 #------------------------------------------------------------------------------#
-#                            	  NAMES AND PATHS                                #
+#                            	  NAMES AND PATHS                              #
 #------------------------------------------------------------------------------#
 
 # Directory structure
@@ -46,7 +46,9 @@ INC_PATH = incs
 HEADERS = ${INC_PATH}/libft.h
 
 # Source files for main library
-SRCS = ${addprefix ${SRC_PATH}/,}
+SRCS = ${addprefix ${SRC_PATH}/, ft_printchar.c ft_printhexa.c \
+	   ft_printpointer.c ft_printunsigned.c ft_printf.c	ft_printnum.c \
+	   ft_printstring.c }
 
 # Source files for bonus part
 SRCS_BONUS = ${addprefix ${BONUS_PATH}/,}
@@ -100,6 +102,15 @@ bonus: ${BUILD_PATH} ${OBJS} ${OBJS_BONUS}   # Assemble bonus functions into the
 	@${AR} ${NAME} ${OBJS} ${OBJS_BONUS}
 	@printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${NAME}${GREEN} created successfully with BONUS!${RESET}\n"
 
+deps:
+	@if test ! -d "${LIBFT_PATH}"; then make get_libft; \
+		else printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT}${GREEN} folder found!"$(YEL)[libft]$(D) folder found"; 
+	fi
+
+get_libft:
+	@echo "[$(CYA)Getting Libft$(D)]"
+	git clone https://github.com/m3irel3s/42_Libft $(LIBFT_PATH)
+	@echo "[$(GRN)Libft successfully downloaded$(D)]"
 ##  Norms Rules  ##
 
 norm_mandatory:                # Check norms for mandatory sources 
