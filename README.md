@@ -1,3 +1,4 @@
+text
 # 42_ft_printf
 
 ## Project Overview
@@ -24,6 +25,7 @@ ft_printf is a custom implementation of the printf function, a core project in t
 ## Usage
 
 1. Clone the repository:
+
 git clone https://github.com/yourusername/ft_printf.git
 
 text
@@ -35,19 +37,22 @@ make
 text
 
 3. Include the header in your C file:
-
+```c
 #include "ft_printf.h"
 
-4. Compile your program with the library:
+    Compile your program with the library:
 
-gcc your_program.c libftprintf.a
+    text
+    gcc your_program.c libftprintf.a
 
-5. Use ft_printf in your code:
+Use ft_printf in your code:
 
+c
 ft_printf("Hello, %s! The answer is %d.\n", "world", 42);
 
 Examples
 
+c
 ft_printf("Character: %c\n", 'A');
 ft_printf("String: %s\n", "Hello, world!");
 ft_printf("Pointer: %p\n", (void *)0x12345678);
@@ -66,7 +71,7 @@ Project Structure
 Norminette
 This project adheres to the Norm, the coding standard of 42 school. All files pass the Norminette check.
 Author
-Melanie Reis
+[Your Name]
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 Acknowledgments
