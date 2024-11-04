@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![ft_printf Logo](https://via.placeholder.com/150)
+![C Logo](https://upload.wikimedia.org/wikipedia/commons/1/19/C_Programming_Language.svg)  <!-- C Programming Language Logo -->
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Norminette](https://img.shields.io/badge/norminette-passing-brightgreen.svg)](https://github.com/42School/norminette)
