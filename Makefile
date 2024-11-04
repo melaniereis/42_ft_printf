@@ -42,7 +42,7 @@ SPARKLES = ✨
 BUILD_PATH = .build
 SRC_PATH = srcs
 BONUS_PATH = srcs_bonus
-INC_PATH = includes
+INC_PATH = incs
 HEADERS = ${INC_PATH}/libft.h
 
 # Source files for main library
