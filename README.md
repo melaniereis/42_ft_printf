@@ -2,7 +2,7 @@
 
 <div align="center">
    
-![Animated Printf Logo](https://media.giphy.com/media/3o7buirY5p1u8S9Y5e/giphy.gif)
+![Animated Printf Logo](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Norminette](https://img.shields.io/badge/norminette-passing-brightgreen.svg)](https://github.com/42School/norminette)
