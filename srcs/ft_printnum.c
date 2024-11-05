@@ -34,7 +34,7 @@ static int	count_size(long n)
 
 void	ft_printnum(int num, int *len)
 {
-	int	i;
+	int		i;
 	long	n;
 
 	n = num;

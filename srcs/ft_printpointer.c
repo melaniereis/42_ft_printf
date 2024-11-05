@@ -17,4 +17,3 @@ void	ft_printpointer(void *ptr, int *len)
 	ptr += 0;
 	len += 0;
 }
-

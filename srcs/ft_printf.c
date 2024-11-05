@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../incs/ft_printf.h"
+#include "../incs/ft_printf.h"
 
-static void	ft_printfcheck (char s, va_list *args, int *len, int *i)
+static void	ft_printfcheck(char s, va_list *args, int *len, int *i)
 {
 	if (s == 'c')
 		ft_printchar(va_arg(*args, int), len);
@@ -23,7 +23,7 @@ static void	ft_printfcheck (char s, va_list *args, int *len, int *i)
 	else if (s == 'd' || s == 'i')
 		ft_printnum(va_arg(*args, int), len);
 	else if (s == 'u')
-		ft_printunsigned(va_arg(*args, unsigned int), len);	
+		ft_printunsigned(va_arg(*args, unsigned int), len);
 	else if (s == 'x' || s == 'X')
 		ft_printhexa(va_arg(*args, unsigned int), len, s);
 	else if (s == '%')
@@ -34,9 +34,9 @@ static void	ft_printfcheck (char s, va_list *args, int *len, int *i)
 
 int	ft_printf(const char *string, ...)
 {
+	int		i;
+	int		length;
 	va_list	args;
-	int	i;
-	int	length;
 
 	i = 0;
 	length = 0;

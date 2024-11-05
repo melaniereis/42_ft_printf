@@ -22,7 +22,7 @@ void	ft_printstring(char *str, int *len)
 	}
 	while (str)
 	{
-		ft_printchar(*str, len); 
+		ft_printchar(*str, len);
 		str++;
 	}
 }

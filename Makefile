@@ -3,7 +3,7 @@
 #==============================================================================#
 
 # Main target names
-NAME = libft_printf.a
+NAME = libftprintf.a
 EXEC = libft_printf.out
 
 #------------------------------------------------------------------------------#
@@ -45,18 +45,15 @@ BONUS_PATH = srcs_bonus
 INC_PATH = incs
 HEADERS = ${INC_PATH}/ft_printf.h
 LIBFT_PATH = ../42_libft/
-LIBFT_ARC = ../42_libft/libft.a
+LIBFT_ARC = ${LIBFT_PATH}/libft.a
 
 # Source files for main library
 SRCS = ${addprefix ${SRC_PATH}/, ft_printchar.c ft_printhexa.c \
        ft_printpointer.c ft_printunsigned.c ft_printf.c ft_printnum.c \
        ft_printstring.c}
-# Source files for bonus part
-SRCS_BONUS = ${addprefix ${BONUS_PATH}/,}
 
 # Object files derived from source files
 OBJS = ${addprefix ${BUILD_PATH}/, ${notdir ${SRCS:.c=.o}}}
-OBJS_BONUS = ${addprefix ${BUILD_PATH}/, ${notdir ${SRCS_BONUS:.c=.o}}}
 
 #------------------------------------------------------------------------------#
 #                            	   FLAGS & COMMANDS                             #
@@ -78,7 +75,7 @@ TMUX = tmux                       # Tmux command for terminal multiplexing
 
 ##  Compilation Rules for Libft  ##
 
-all: deps ${NAME}                  # Default target: build the ft_printflibft
+all: ${NAME}                  # Default target: build the ft_printflibft
 
 ${NAME}: ${BUILD_PATH} ${OBJS} ${LIBFT_ARC}
 	@printf "\n${YELLOW}${BOLD}${BUILD} Assembling ${WHITE}${NAME}${YELLOW}...${RESET}\n"
@@ -90,7 +87,7 @@ ${BUILD_PATH}:
 	@${MKDIR_P} ${BUILD_PATH}
 	@printf "${GREEN}${BOLD}${CHECK} Build directory created successfully!${RESET}\n"
 
-${LIBFT_ARC}:
+${LIBFT_ARC}: deps
 	@printf "${CYAN}${BOLD}${DIM} Compiling Libft..${RESET}\n"
 	@${MAKE_BONUS} ${LIBFT_PATH}
 	@printf "${BLUE}${BOLD}${BUILD} ${WHITE}${LIBFT_ARC}${GREEN} compiled! ${RESET}\n"
@@ -98,15 +95,6 @@ ${LIBFT_ARC}:
 ${BUILD_PATH}/%.o: ${SRC_PATH}/%.c ${HEADERS} | ${BUILD_PATH}
 	@printf "${CYAN}${DIM}Compiling: ${WHITE}%-30s${RESET}\r" ${notdir $<}
 	@${CC} ${CCFLAGS} ${INC} -c $< -o $@
-
-${BUILD_PATH}/%.o: ${BONUS_PATH}/%.c ${HEADERS} | ${BUILD_PATH}
-	@printf "${CYAN}${DIM}Compiling: ${WHITE}%-30s${RESET}\r" ${notdir $<}
-	@${CC} ${CCFLAGS} ${INC} -c $< -o $@
-
-bonus: ${BUILD_PATH} ${OBJS} ${OBJS_BONUS}   # Assemble bonus functions into the library
-	@printf "\n${PURPLE}${BOLD}${SPARKLES} Assembling bonus functions...${RESET}\n"
-	@${AR} ${NAME} ${OBJS} ${OBJS_BONUS}
-	@printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${NAME}${GREEN} created successfully with BONUS!${RESET}\n"
 
 deps:
 	@if test ! -d "${LIBFT_PATH}"; then make get_libft; \
