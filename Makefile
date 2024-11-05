@@ -64,7 +64,7 @@ OBJS_BONUS = ${addprefix ${BUILD_PATH}/, ${notdir ${SRCS_BONUS:.c=.o}}}
 
 CC = cc                           # Compiler to use
 CCFLAGS = -Wall -Wextra -Werror   # Compiler flags for warnings and errors
-LDFLAGS = -L. -lft
+LDFLAGS = -L${LIBFT_PATH} -lft
 AR = ar rcs                       # Archive command to create static libraries
 RM = rm -fr                       # Command to remove files/directories forcefully
 MKDIR_P = mkdir -p                # Command to create directories (with parent)
@@ -117,9 +117,9 @@ get_libft:
 	@git clone git@github.com:melaniereis/42_libft.git ${LIBFT_PATH}
 	@printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT_ARC}${GREEN} successfully downloaded!${RESET}\n"
 
-test: all		#ft_printf's test
+test: ${BUILD_PATH} ${OBJS} ${LIBFT_ARC}
 	@printf "${CYAN}${DIM}Compiling main.c for test...${RESET}\n"
-	@${CC} ${CCFLAGS} ${INC} main.c -o ${EXEC} -L. -lft_printf ${LDFLAGS} ${LIBFT_ARC}
+	@${CC} ${CCFLAGS} main.c ${OBJS} ${LDFLAGS} -o ${EXEC}
 	@printf "${GREEN}${BOLD}${CHECK} Test executable compiled successfully!${RESET}\n"
 	@printf "${YELLOW}${BOLD}Running test...${RESET}\n"
 	@./${EXEC}

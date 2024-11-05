@@ -14,6 +14,7 @@
 
 void	ft_printhexa(unsigned int num, int *len, char s)
 {
+	char	string[25];
 	char	*base;
 	int		index;
 
@@ -21,12 +22,18 @@ void	ft_printhexa(unsigned int num, int *len, char s)
 		base = "0123456789abcdef";
 	else if (s == 'X')
 		base = "0123456789ABCDEF";
-	
 	index = 0;
-	if (num >= 16)
+	if (num == 0)
 	{
-		
-		num = num / 16;
+		ft_printchar('0', len);
+		return ;
 	}
-	*len += 0;
+	while (num != 0)
+	{
+		string[index] = base[num % 16];
+		num = num / 16;
+		index++;
+	}
+	while (index--)
+		ft_printchar(string[index], len);	
 }
