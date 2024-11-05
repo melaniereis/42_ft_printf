@@ -15,7 +15,7 @@
 static void	ft_printfcheck (char s, va_list *args, int *len, int *i)
 {
 	if (s == 'c')
-		ft_printchar(va_arg(*args, char), len);
+		ft_printchar(va_arg(*args, int), len);
 	else if (s == 's')
 		ft_printstring(va_arg(*args, char *), len);
 	else if (s == 'p')
@@ -57,11 +57,4 @@ int	ft_printf(const char *string, ...)
 	}
 	va_end(args);
 	return (length);
-}
-
-int main()
-{
-	char s[] = "world!";
-
-	ft_printf("Hello %s", s);
 }

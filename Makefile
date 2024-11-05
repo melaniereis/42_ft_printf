@@ -43,13 +43,14 @@ BUILD_PATH = .build
 SRC_PATH = srcs
 BONUS_PATH = srcs_bonus
 INC_PATH = incs
-HEADERS = ${INC_PATH}/libft.h
+HEADERS = ${INC_PATH}/ft_printf.h
+LIBFT_PATH = ../42_libft/
+LIBFT_ARC = ../42_libft/libft.a
 
 # Source files for main library
 SRCS = ${addprefix ${SRC_PATH}/, ft_printchar.c ft_printhexa.c \
-	   ft_printpointer.c ft_printunsigned.c ft_printf.c	ft_printnum.c \
-	   ft_printstring.c }
-
+       ft_printpointer.c ft_printunsigned.c ft_printf.c ft_printnum.c \
+       ft_printstring.c}
 # Source files for bonus part
 SRCS_BONUS = ${addprefix ${BONUS_PATH}/,}
 
@@ -58,17 +59,17 @@ OBJS = ${addprefix ${BUILD_PATH}/, ${notdir ${SRCS:.c=.o}}}
 OBJS_BONUS = ${addprefix ${BUILD_PATH}/, ${notdir ${SRCS_BONUS:.c=.o}}}
 
 #------------------------------------------------------------------------------#
-#                            	   FLAGS & COMMANDS                              #
+#                            	   FLAGS & COMMANDS                             #
 #------------------------------------------------------------------------------#
 
 CC = cc                           # Compiler to use
 CCFLAGS = -Wall -Wextra -Werror   # Compiler flags for warnings and errors
+LDFLAGS = -L. -lft
 AR = ar rcs                       # Archive command to create static libraries
 RM = rm -fr                       # Command to remove files/directories forcefully
 MKDIR_P = mkdir -p                # Command to create directories (with parent)
-
-INC = -I ${INC_PATH}              # Include path for header files
-
+INC = -I ${INC_PATH}              # Include path for header file
+MAKE_BONUS = make bonus -C
 TMUX = tmux                       # Tmux command for terminal multiplexing
 
 #------------------------------------------------------------------------------#
@@ -77,23 +78,28 @@ TMUX = tmux                       # Tmux command for terminal multiplexing
 
 ##  Compilation Rules for Libft  ##
 
-all: ${NAME}                     # Default target: build the library
+all: deps ${NAME}                  # Default target: build the ft_printflibft
 
-${BUILD_PATH}:                   # Create build directory if it doesn't exist
+${NAME}: ${BUILD_PATH} ${OBJS} ${LIBFT_ARC}
+	@printf "\n${YELLOW}${BOLD}${BUILD} Assembling ${WHITE}${NAME}${YELLOW}...${RESET}\n"
+	@${AR} ${NAME} ${OBJS} ${LIBFT_ARC}
+	@printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${NAME}${GREEN} created successfully!${RESET}\n"
+
+${BUILD_PATH}:
 	@printf "\n${BLUE}${BOLD}Creating build directory...${RESET}\n"
 	@${MKDIR_P} ${BUILD_PATH}
 	@printf "${GREEN}${BOLD}${CHECK} Build directory created successfully!${RESET}\n"
 
-${NAME}: ${BUILD_PATH} ${OBJS}    # Build the static library from object files
-	@printf "\n${YELLOW}${BOLD}${BUILD} Assembling ${WHITE}${NAME}${YELLOW}...${RESET}\n"
-	@${AR} ${NAME} ${OBJS}
-	@printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${NAME}${GREEN} created successfully!${RESET}\n"
+${LIBFT_ARC}:
+	@printf "${CYAN}${BOLD}${DIM} Compiling Libft..${RESET}\n"
+	@${MAKE_BONUS} ${LIBFT_PATH}
+	@printf "${BLUE}${BOLD}${BUILD} ${WHITE}${LIBFT_ARC}${GREEN} compiled! ${RESET}\n"
 
-${BUILD_PATH}/%.o: ${SRC_PATH}/%.c ${HEADERS}  # Compile source files into object files (main)
+${BUILD_PATH}/%.o: ${SRC_PATH}/%.c ${HEADERS} | ${BUILD_PATH}
 	@printf "${CYAN}${DIM}Compiling: ${WHITE}%-30s${RESET}\r" ${notdir $<}
 	@${CC} ${CCFLAGS} ${INC} -c $< -o $@
 
-${BUILD_PATH}/%.o: ${BONUS_PATH}/%.c ${HEADERS}  # Compile bonus source files into object files (bonus)
+${BUILD_PATH}/%.o: ${BONUS_PATH}/%.c ${HEADERS} | ${BUILD_PATH}
 	@printf "${CYAN}${DIM}Compiling: ${WHITE}%-30s${RESET}\r" ${notdir $<}
 	@${CC} ${CCFLAGS} ${INC} -c $< -o $@
 
@@ -104,13 +110,22 @@ bonus: ${BUILD_PATH} ${OBJS} ${OBJS_BONUS}   # Assemble bonus functions into the
 
 deps:
 	@if test ! -d "${LIBFT_PATH}"; then make get_libft; \
-		else printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT}${GREEN} folder found!"$(YEL)[libft]$(D) folder found"; 
-	fi
+		else printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT_ARC}${GREEN} folder found!${RESET}\n"; fi
 
 get_libft:
-	@echo "[$(CYA)Getting Libft$(D)]"
-	git clone https://github.com/m3irel3s/42_Libft $(LIBFT_PATH)
-	@echo "[$(GRN)Libft successfully downloaded$(D)]"
+	@printf "${CYAN}${BOLD}${BOOK} Getting Libft..${RESET}\n"
+	@git clone git@github.com:melaniereis/42_libft.git ${LIBFT_PATH}
+	@printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT_ARC}${GREEN} successfully downloaded!${RESET}\n"
+
+test: all		#ft_printf's test
+	@printf "${CYAN}${DIM}Compiling main.c for test...${RESET}\n"
+	@${CC} ${CCFLAGS} ${INC} main.c -o ${EXEC} -L. -lft_printf ${LDFLAGS} ${LIBFT_ARC}
+	@printf "${GREEN}${BOLD}${CHECK} Test executable compiled successfully!${RESET}\n"
+	@printf "${YELLOW}${BOLD}Running test...${RESET}\n"
+	@./${EXEC}
+	@printf "${GREEN}${BOLD}${CHECK} Test completed!${RESET}\n"
+	@${RM} ${EXEC}
+
 ##  Norms Rules  ##
 
 norm_mandatory:                # Check norms for mandatory sources 
@@ -158,7 +173,6 @@ clean:                       # Clean up object files and temporary build files
 	@printf "\n${YELLOW}${BOLD}${CLEAN} Cleaning object files...${RESET}\n"
 	@${RM} ${OBJS} ${OBJS_BONUS}
 	@printf "${GREEN}${BOLD}${CHECK} Object files cleaned!${RESET}\n"
-	@${MAKE_CLEAN} ${TESTS_PATH}
 
 fclean: clean               # Fully clean up by removing executables and build directories 
 	@printf "${YELLOW}${BOLD}${CLEAN} Removing executable and build files...${RESET}\n"
@@ -166,8 +180,8 @@ fclean: clean               # Fully clean up by removing executables and build d
 	@${RM} ${BUILD_PATH}
 	@${RM} ${EXEC}
 	@printf "${GREEN}${BOLD}${CHECK} All files cleaned!${RESET}\n"
-	@${MAKE_FCLEAN} ${TESTS_PATH}
 
 re: fclean ${NAME}          # Rebuild everything from scratch 
 
-.PHONY: all test clean fclean re test norm start_tmux start_tmux_bonus   # Declare phony targets 
+.PHONY: all test clean fclean re norm start_tmux start_tmux_bonus get_libft
+# Declare phony targets 

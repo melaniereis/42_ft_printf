@@ -15,19 +15,18 @@
 static int	count_size(long n)
 {
 	int		counter;
-	long		nb;
 
 	counter = 0;
-	if (nb == 0)
+	if (n == 0)
 		return (1);
-	if (nb < 0)
+	if (n < 0)
 	{
 		counter++;
-		nb *= -1;
+		n *= -1;
 	}
-	while (nb > 0)
+	while (n > 0)
 	{
-		nb = nb / 10;
+		n = n / 10;
 		counter++;
 	}
 	return (counter);

@@ -28,5 +28,5 @@ void	ft_printhexa(unsigned int num, int *len, char s)
 		
 		num = num / 16;
 	}
-
+	*len += 0;
 }

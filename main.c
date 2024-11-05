@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printunsigned.c                                 :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meferraz <meferraz@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 12:59:21 by meferraz          #+#    #+#             */
-/*   Updated: 2024/11/04 12:59:23 by meferraz         ###   ########.fr       */
+/*   Created: 2024/11/05 10:23:14 by meferraz          #+#    #+#             */
+/*   Updated: 2024/11/05 10:24:43 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ft_printf.h"
+# include "./incs/ft_printf.h"
 
-void	ft_printunsigned(unsigned int num, int *len)
+int	main(void)
 {
-	int	n;
-
-	n = num;
-	ft_printnum(n, len);
+	printf("Hello\n");
+	return (0);
 }
