@@ -1,5 +1,5 @@
 #==============================================================================#
-#                                   LIBFT PROJECT                               #
+#                                   LIBFT PROJECT                              #
 #==============================================================================#
 
 # Main target names
@@ -7,7 +7,7 @@ NAME = libftprintf.a
 EXEC = libftprintf.out
 
 #------------------------------------------------------------------------------#
-#                                COLORS & STYLES                                #
+#                                COLORS & STYLES                               #
 #------------------------------------------------------------------------------#
 
 # ANSI color codes for prettier output
@@ -56,7 +56,7 @@ SRCS = ${addprefix ${SRC_PATH}/, ft_printchar.c ft_printhexa.c \
 OBJS = ${addprefix ${BUILD_PATH}/, ${notdir ${SRCS:.c=.o}}}
 
 #------------------------------------------------------------------------------#
-#                            	   FLAGS & COMMANDS                             #
+#                            	   FLAGS & COMMANDS                            #
 #------------------------------------------------------------------------------#
 
 CC = cc                           # Compiler to use
@@ -66,12 +66,12 @@ AR = ar rcs                       # Archive command to create static libraries
 RM = rm -fr                       # Command to remove files/directories forcefully
 MKDIR_P = mkdir -p                # Command to create directories (with parent)
 INC = -I ${INC_PATH}              # Include path for header file
-MAKE = make -C
-MAKE_BONUS = make bonus -C
+MAKE = make --no-print-directory -C
+MAKE_BONUS = make bonus --no-print-directory -C
 TMUX = tmux                       # Tmux command for terminal multiplexing
 
 #------------------------------------------------------------------------------#
-#                                    RULES                                      #
+#                                    RULES                                     #
 #------------------------------------------------------------------------------#
 
 ##  Compilation Rules for Libft  ##
@@ -169,7 +169,6 @@ fclean: clean               # Fully clean up by removing executables and build d
 	@${RM} ${BUILD_PATH}
 	@${RM} ${EXEC}
 	@${MAKE} ${LIBFT_PATH} fclean
-	@${RM} ${LIBFT_PATH}
 	@printf "${GREEN}${BOLD}${CHECK} All files cleaned!${RESET}\n"
 
 re: fclean ${NAME}          # Rebuild everything from scratch 

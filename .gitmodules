@@ -1,0 +1,3 @@
+[submodule "incs/42_libft"]
+	path = incs/42_libft
+	url = https://github.com/melaniereis/42_libft.git

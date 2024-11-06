@@ -15,6 +15,6 @@
 void	ft_printunsigned(unsigned int num, int *len)
 {
 	if (num >= 10)
-		ft_printunsigned(num / 10);
+		ft_printunsigned(num / 10, len);
 	ft_printchar((num % 10) + '0', len);
 }

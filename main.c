@@ -39,8 +39,9 @@ int main(void)
     printf_len = printf("Empty string: %s\n", "");
     check_test(ft_len, printf_len, "Empty string");
 
-    ft_len = ft_printf("NULL string: %s\n", NULL);
-    printf_len = printf("NULL string: %s\n", NULL);
+    char *null_str = NULL;
+    ft_len = ft_printf("NULL string: %s\n", null_str);
+    printf_len = printf("NULL string: %s\n", null_str);
     check_test(ft_len, printf_len, "NULL string");
 
     ft_len = ft_printf("Normal string: %s\n", "Hello, world!");
