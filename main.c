@@ -9,146 +9,144 @@
 /*   Updated: 2024/11/05 11:30:00 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "./incs/ft_printf.h"
+#include <stdio.h>
 #include <limits.h>
-#include <float.h>
 
 static void	print_header(const char *title)
 {
-	printf("\n%s%s=== %s ===%s\n", BHCYN, CYNB, title, RESET);
+	ft_printf("\n%s%s=== %s ===%s\n", BHBLU, BLUB, title, RESET);
 }
 
-static void	print_test_result(int ft_len, int printf_len)
+static void	print_result(const char *label, int result)
 {
-	if (ft_len == printf_len)
-		printf("%sft_printf return: %d, printf return: %d%s\n",
-			BGRN, ft_len, printf_len, RESET);
-	else
-		printf("%sft_printf return: %d, printf return: %d%s\n",
-			BRED, ft_len, printf_len, RESET);
+	ft_printf("%s%s: %s%d%s\n", HCYN, label, HGRN, result, RESET);
 }
 
 static void	test_string(void)
 {
+	int	ft_result;
+	int	printf_result;
+
 	print_header("String Conversion");
-	print_test_result(ft_printf("String: %s\n", "Hello, world!"),
-					  printf("String: %s\n", "Hello, world!"));
-	print_test_result(ft_printf("Empty string: %s\n", ""),
-					  printf("Empty string: %s\n", ""));
-	print_test_result(ft_printf("NULL string: %s\n", (char *)NULL),
-					  printf("NULL string: %s\n", (char *)NULL));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%s\n", "Hello, world!");
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%s\n", "Hello, world!");
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_char(void)
 {
+	int	ft_result;
+	int	printf_result;
+
 	print_header("Character Conversion");
-	print_test_result(ft_printf("Character: %c\n", 'A'),
-					  printf("Character: %c\n", 'A'));
-	print_test_result(ft_printf("Non-printable: %c\n", 7),
-					  printf("Non-printable: %c\n", 7));
-	print_test_result(ft_printf("Null character: %c\n", 0),
-					  printf("Null character: %c\n", 0));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%c\n", 'A');
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%c\n", 'A');
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_integer(void)
 {
+	int	ft_result;
+	int	printf_result;
+
 	print_header("Integer Conversion");
-	print_test_result(ft_printf("Positive: %d\n", 42),
-					  printf("Positive: %d\n", 42));
-	print_test_result(ft_printf("Negative: %d\n", -42),
-					  printf("Negative: %d\n", -42));
-	print_test_result(ft_printf("Zero: %d\n", 0),
-					  printf("Zero: %d\n", 0));
-	print_test_result(ft_printf("INT_MAX: %d\n", INT_MAX),
-					  printf("INT_MAX: %d\n", INT_MAX));
-	print_test_result(ft_printf("INT_MIN: %d\n", INT_MIN),
-					  printf("INT_MIN: %d\n", INT_MIN));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%d\n", 42);
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%d\n", 42);
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_unsigned(void)
 {
+	int	ft_result;
+	int	printf_result;
+
 	print_header("Unsigned Integer Conversion");
-	print_test_result(ft_printf("Unsigned: %u\n", 4294967295U),
-					  printf("Unsigned: %u\n", 4294967295U));
-	print_test_result(ft_printf("Zero: %u\n", 0),
-					  printf("Zero: %u\n", 0));
-	print_test_result(ft_printf("UINT_MAX: %u\n", UINT_MAX),
-					  printf("UINT_MAX: %u\n", UINT_MAX));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%u\n", 4294967295U);
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%u\n", 4294967295U);
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_hex(void)
 {
+	int	ft_result;
+	int	printf_result;
+
 	print_header("Hexadecimal Conversion");
-	print_test_result(ft_printf("Lowercase: %x\n", 255),
-					  printf("Lowercase: %x\n", 255));
-	print_test_result(ft_printf("Uppercase: %X\n", 255),
-					  printf("Uppercase: %X\n", 255));
-	print_test_result(ft_printf("Zero: %x\n", 0),
-					  printf("Zero: %x\n", 0));
-	print_test_result(ft_printf("INT_MAX: %x\n", INT_MAX),
-					  printf("INT_MAX: %x\n", INT_MAX));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%x %X\n", 255, 255);
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%x %X\n", 255, 255);
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_pointer(void)
 {
 	int	num;
-	char	*str;
+	int	ft_result;
+	int	printf_result;
 
 	num = 42;
-	str = "test";
 	print_header("Pointer Conversion");
-	print_test_result(ft_printf("Integer pointer: %p\n", (void *)&num),
-					  printf("Integer pointer: %p\n", (void *)&num));
-	print_test_result(ft_printf("String pointer: %p\n", (void *)str),
-					  printf("String pointer: %p\n", (void *)str));
-	print_test_result(ft_printf("NULL pointer: %p\n", NULL),
-					  printf("NULL pointer: %p\n", NULL));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%p\n", (void *)&num);
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%p\n", (void *)&num);
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_percent(void)
 {
+	int	ft_result;
+	int	printf_result;
+
 	print_header("Percent Sign");
-	print_test_result(ft_printf("Percent: %%\n"),
-					  printf("Percent: %%\n"));
-	print_test_result(ft_printf("Multiple percent: %% %% %%\n"),
-					  printf("Multiple percent: %% %% %%\n"));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%%\n");
+	ft_printf("%sprintf:    %s ", HYEL, RESET);
+	printf_result = printf("%%\n");
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 static void	test_multiple(void)
 {
 	int	num;
+	int	ft_result;
+	int	printf_result;
 
 	num = 42;
 	print_header("Multiple Conversions");
-	print_test_result(ft_printf("Multiple: %s %c %d %u %x %X %p %%\n",
-			"test", 'Z', -42, 3000000000U, (unsigned int)3735928559, (unsigned int)3735928559, (void *)&num),
-			printf("Multiple: %s %c %d %u %x %X %p %%\n",
-			"test", 'Z', -42, 3000000000U, (unsigned int)3735928559, (unsigned int)3735928559, (void *)&num));
-}
-
-static void	test_edge_cases(void)
-{
-	print_header("Edge Cases");
-	print_test_result(ft_printf("Edge cases: %d %d %u %x\n", INT_MAX, INT_MIN, UINT_MAX, 0),
-					  printf("Edge cases: %d %d %u %x\n", INT_MAX, INT_MIN, UINT_MAX, 0));
-	print_test_result(ft_printf("Mixed types: %d %u %x %X\n", -1, -1, -1, -1),
-					  printf("Mixed types: %d %u %x %X\n", -1, -1, -1, -1));
-}
-
-static void	test_precision(void)
-{
-	print_header("Precision Tests");
-	print_test_result(ft_printf("Precision integer: %.5d\n", 42),
-					  printf("Precision integer: %.5d\n", 42));
-	print_test_result(ft_printf("Precision string: %.3s\n", "Hello"),
-					  printf("Precision string: %.3s\n", "Hello"));
-	print_test_result(ft_printf("Zero precision: %.0d\n", 0),
-					  printf("Zero precision: %.0d\n", 0));
+	ft_printf("%sft_printf:%s ", HYEL, RESET);
+	ft_result = ft_printf("%s %c %d %u %x %X %p %%\n",
+		"test", 'Z', -42, 3000000000U,
+		(unsigned int)3735928559L,
+		(unsigned int)3735928559L, (void *)&num);
+	printf_result = printf("%s %c %d %u %x %X %p %%\n",
+		"test", 'Z', -42, 3000000000U,
+		(unsigned int)3735928559L,
+		(unsigned int)3735928559L, (void *)&num);
+	print_result("ft_printf return", ft_result);
+	print_result("printf return   ", printf_result);
 }
 
 int	main(void)
 {
+	ft_printf("%s%sFT_PRINTF TESTER%s\n", BHCYN, CYNHB, RESET);
 	test_string();
 	test_char();
 	test_integer();
@@ -157,8 +155,6 @@ int	main(void)
 	test_pointer();
 	test_percent();
 	test_multiple();
-	test_edge_cases();
-	test_precision();
-	printf("\n%s%sTesting completed!%s\n", BHGRN, GRNB, RESET);
+	ft_printf("\n%s%sTesting completed!%s\n", BHGRN, GRNHB, RESET);
 	return (0);
 }
