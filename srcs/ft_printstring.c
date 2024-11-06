@@ -20,7 +20,7 @@ void	ft_printstring(char *str, int *len)
 		(*len) += 6;
 		return ;
 	}
-	while (str)
+	while (*str)
 	{
 		ft_printchar(*str, len);
 		str++;

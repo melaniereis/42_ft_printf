@@ -13,130 +13,78 @@
 #include <stdio.h>
 #include <limits.h>
 
-static void	print_header(const char *title)
+#include "ft_printf.h"
+#include <stdio.h>
+#include <limits.h>
+
+int main(void)
 {
-	printf("\n%s%s=== %s ===%s\n", BHBLU, BLUB, title, RESET);
-}
+    int ft_len;
+    int printf_len;
 
-static void	print_result(const char *label, int result)
-{
-	printf("%s%s: %s%d%s\n", HCYN, label, HGRN, result, RESET);
-}
+    // Test string
+    ft_len = ft_printf("String: %s\n", "Hello, world!");
+    printf_len = printf("String: %s\n", "Hello, world!");
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_string(void)
-{
-	int	ft_result;
-	int	printf_result;
+    // Test character
+    ft_len = ft_printf("Character: %c\n", 'A');
+    printf_len = printf("Character: %c\n", 'A');
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-	print_header("String Conversion");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%s\n", "Hello, world!");
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%s\n", "Hello, world!");
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
+    // Test integer
+    ft_len = ft_printf("Integer: %d\n", 42);
+    printf_len = printf("Integer: %d\n", 42);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_char(void)
-{
-	int	ft_result;
-	int	printf_result;
+    // Test negative integer
+    ft_len = ft_printf("Negative integer: %i\n", -42);
+    printf_len = printf("Negative integer: %i\n", -42);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-	print_header("Character Conversion");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%c\n", 'A');
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%c\n", 'A');
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
+    // Test unsigned integer
+    ft_len = ft_printf("Unsigned integer: %u\n", 4294967295);
+    printf_len = printf("Unsigned integer: %u\n", 4294967295);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_pointer(void)
-{
-	void	*ptr;
-	int		ft_result;
-	int		printf_result;
+    // Test hexadecimal (lowercase)
+    ft_len = ft_printf("Hexadecimal (lowercase): %x\n", 255);
+    printf_len = printf("Hexadecimal (lowercase): %x\n", 255);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-	ptr = (void *)0x12345678;
-	print_header("Pointer Conversion");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%p\n", ptr);
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%p\n", ptr);
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
+    // Test hexadecimal (uppercase)
+    ft_len = ft_printf("Hexadecimal (uppercase): %X\n", 255);
+    printf_len = printf("Hexadecimal (uppercase): %X\n", 255);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_integer(void)
-{
-	int	ft_result;
-	int	printf_result;
+    // Test pointer
+    int num = 42;
+    ft_len = ft_printf("Pointer: %p\n", (void *)&num);
+    printf_len = printf("Pointer: %p\n", (void *)&num);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-	print_header("Integer Conversion");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%i, %d\n", 42, -42);
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%i, %d\n", 42, -42);
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
+    // Test percent sign
+    ft_len = ft_printf("Percent sign: %%\n");
+    printf_len = printf("Percent sign: %%\n");
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_hex(void)
-{
-	int	ft_result;
-	int	printf_result;
+    // Test multiple conversions
+    ft_len = ft_printf("Multiple: %s %c %d %i %u %x %X %p %%\n", "test", 'Z', 42, -42, 4294967295, 255, 255, (void *)&num);
+    printf_len = printf("Multiple: %s %c %d %i %u %x %X %p %%\n", "test", 'Z', 42, -42, 4294967295, 255, 255, (void *)&num);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-	print_header("Hexadecimal Conversion");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%x, %X\n", 255, 255);
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%x, %X\n", 255, 255);
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
+    // Test edge cases
+    ft_len = ft_printf("Null string: %s\n", NULL);
+    printf_len = printf("Null string: %s\n", NULL);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_percent(void)
-{
-	int	ft_result;
-	int	printf_result;
+    ft_len = ft_printf("INT_MAX: %d\n", INT_MAX);
+    printf_len = printf("INT_MAX: %d\n", INT_MAX);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-	print_header("Percent Sign");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%%\n");
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%%\n");
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
+    ft_len = ft_printf("INT_MIN: %d\n", INT_MIN);
+    printf_len = printf("INT_MIN: %d\n", INT_MIN);
+    ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
-static void	test_multiple(void)
-{
-	void	*ptr;
-	int		ft_result;
-	int		printf_result;
-
-	ptr = (void *)0x12345678;
-	print_header("Multiple Conversions");
-	printf("%sft_printf:%s ", HYEL, RESET);
-	ft_result = ft_printf("%s %c %p %i %d %x %X %%\n",
-		"test", 'Z', ptr, 42, -42, 255, 255);
-	printf("%sprintf:    %s ", HYEL, RESET);
-	printf_result = printf("%s %c %p %i %d %x %X %%\n",
-		"test", 'Z', ptr, 42, -42, 255, 255);
-	print_result("ft_printf return", ft_result);
-	print_result("printf return   ", printf_result);
-}
-
-int	main(void)
-{
-	printf("%s%sFT_PRINTF TESTER%s\n", BHCYN, CYNHB, RESET);
-	test_string();
-	test_char();
-	test_pointer();
-	test_integer();
-	test_hex();
-	test_percent();
-	test_multiple();
-	printf("\n%s%sTesting completed!%s\n", BHGRN, GRNHB, RESET);
-	return (0);
+    return (0);
 }
