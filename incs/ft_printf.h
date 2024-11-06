@@ -16,7 +16,7 @@
 #include <ctype.h>
 #include <strings.h>
 #include <string.h>
-#include <bsd/string.h>
+//#include <bsd/string.h>
 #include <stddef.h>
 #include <stdarg.h>
 #include "./ansi.h"
