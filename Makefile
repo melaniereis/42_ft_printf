@@ -176,6 +176,7 @@ fclean: clean               # Fully clean up by removing executables and build d
 	@${RM} ${BUILD_PATH}
 	@${RM} ${EXEC}
 	@${MAKE} ${LIBFT_PATH} fclean
+	@${RM} ${LIBFT_PATH}
 	@printf "${GREEN}${BOLD}${CHECK} All files cleaned!${RESET}\n"
 
 re: fclean ${NAME}          # Rebuild everything from scratch 
