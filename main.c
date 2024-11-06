@@ -13,10 +13,6 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include "ft_printf.h"
-#include <stdio.h>
-#include <limits.h>
-
 int main(void)
 {
     int ft_len;
@@ -43,8 +39,8 @@ int main(void)
     ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
     // Test unsigned integer
-    ft_len = ft_printf("Unsigned integer: %u\n", 4294967295);
-    printf_len = printf("Unsigned integer: %u\n", 4294967295);
+    ft_len = ft_printf("Unsigned integer: %u\n", 4294967295U);
+    printf_len = printf("Unsigned integer: %u\n", 4294967295U);
     ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
     // Test hexadecimal (lowercase)
@@ -69,8 +65,12 @@ int main(void)
     ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
     // Test multiple conversions
-    ft_len = ft_printf("Multiple: %s %c %d %i %u %x %X %p %%\n", "test", 'Z', 42, -42, 4294967295, 255, 255, (void *)&num);
-    printf_len = printf("Multiple: %s %c %d %i %u %x %X %p %%\n", "test", 'Z', 42, -42, 4294967295, 255, 255, (void *)&num);
+    ft_len = ft_printf("Multiple: %s %c %d %i %u %x %X %p %%\n",
+                       "test", 'Z', 42, -42, 4294967295U, 255, 255, (void *)&num);
+    
+    printf_len = printf("Multiple: %s %c %d %i %u %x %X %p %%\n",
+                        "test", 'Z', 42, -42, 4294967295U, 255, 255, (void *)&num);
+    
     ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
     // Test edge cases
@@ -78,6 +78,7 @@ int main(void)
     printf_len = printf("Null string: %s\n", NULL);
     ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);
 
+    // Testing INT_MAX and INT_MIN for signed integers
     ft_len = ft_printf("INT_MAX: %d\n", INT_MAX);
     printf_len = printf("INT_MAX: %d\n", INT_MAX);
     ft_printf("ft_printf length: %d, printf length: %d\n\n", ft_len, printf_len);

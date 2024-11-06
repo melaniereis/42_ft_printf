@@ -27,4 +27,4 @@ void	ft_printstring(char *str, int *len);
 void	ft_printnum(int num, int *len);
 void	ft_printunsigned(unsigned int num, int *len);
 void	ft_printpointer(void *ptr, int *len);
-void	ft_printhexa(unsigned int num, int *len, char s);
+void	ft_printhexa(unsigned long long num, const char format, int *len);
