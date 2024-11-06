@@ -12,7 +12,7 @@
 
 #include "../incs/ft_printf.h"
 
-static void	ft_printfcheck(char s, va_list *args, int *len, int *i)
+static void	ft_printfcheck(char s, va_list *args, int *len)
 {
 	if (s == 'c')
 		ft_printchar(va_arg(*args, int), len);
@@ -25,36 +25,37 @@ static void	ft_printfcheck(char s, va_list *args, int *len, int *i)
 	else if (s == 'u')
 		ft_printunsigned(va_arg(*args, unsigned int), len);
 	else if (s == 'x' || s == 'X')
-		ft_printhexa(va_arg(*args, unsigned int), len, s);
+		ft_printhexa(va_arg(*args, unsigned int), s, len);
 	else if (s == '%')
 		ft_printchar('%', len);
-	else
-		(*i)++;
+	// Remove the else clause as it's not needed
 }
 
-int	ft_printf(const char *string, ...)
+int	ft_printf(const char *str, ...)
 {
-	int		i;
-	int		length;
 	va_list	args;
+	int		i;
+	int		len;
 
 	i = 0;
-	length = 0;
-	va_start(args, string);
-	while (string[i] != '\0')
+	len = 0;
+	va_start(args, str);
+	while (str[i])
 	{
-		if (string[i] == '%')
+		if (str[i] == '%' && str[i + 1])
 		{
+			ft_printfcheck(str[i + 1], &args, &len);
 			i++;
-			ft_printfcheck(string[i], &args, &length, &i);
+		}
+		else if (str[i] == '\\' && str[i + 1] == 'n')
+		{
+			ft_printchar('\n', &len);
 			i++;
 		}
 		else
-		{
-			ft_putchar_fd(string[i], 1);
-			i++;
-		}
+			ft_printchar(str[i], &len);
+		i++;
 	}
 	va_end(args);
-	return (length);
+	return (len);
 }

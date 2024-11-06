@@ -14,6 +14,14 @@
 
 void	ft_printpointer(void *ptr, int *len)
 {
-	ptr += 0;
-	len += 0;
+	unsigned long long	address;
+
+	if (ptr == NULL)
+	{
+		ft_printstring("(nil)", len);
+		return;
+	}
+	address = (unsigned long long)ptr;
+	ft_printstring("0x", len);
+	ft_printhexa(address, 'x', len);
 }
