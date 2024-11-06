@@ -118,7 +118,7 @@ This project adheres to the Norm, the coding standard of 42 School. All files pa
 👩‍💻 Author
 Melanie Reis <details> <summary>Contact Information</summary>
 
-    GitHub: @YourGitHubUsername
+    GitHub: @melaniereis
     LinkedIn: Melanie Reis
 
 </details>
