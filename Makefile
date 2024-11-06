@@ -102,7 +102,7 @@ deps:
 		else printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT_ARC}${GREEN} folder found!${RESET}\n"; fi
 	@make update_modules
 
-update_modules:	## Update modules
+update_modules:	## Update modules github
 	@echo "[$(CYA)Updating submodules$(D)]"
 	git submodule init
 	git submodule update --recursive --remote
