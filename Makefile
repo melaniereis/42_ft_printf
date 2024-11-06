@@ -4,7 +4,7 @@
 
 # Main target names
 NAME = libftprintf.a
-EXEC = libft_printf.out
+EXEC = libftprintf.out
 
 #------------------------------------------------------------------------------#
 #                                COLORS & STYLES                                #
@@ -44,7 +44,7 @@ SRC_PATH = srcs
 BONUS_PATH = srcs_bonus
 INC_PATH = incs
 HEADERS = ${INC_PATH}/ft_printf.h
-LIBFT_PATH = ../42_libft/
+LIBFT_PATH = incs/42_libft
 LIBFT_ARC = ${LIBFT_PATH}/libft.a
 
 # Source files for main library
@@ -66,6 +66,7 @@ AR = ar rcs                       # Archive command to create static libraries
 RM = rm -fr                       # Command to remove files/directories forcefully
 MKDIR_P = mkdir -p                # Command to create directories (with parent)
 INC = -I ${INC_PATH}              # Include path for header file
+MAKE = make -C
 MAKE_BONUS = make bonus -C
 TMUX = tmux                       # Tmux command for terminal multiplexing
 
@@ -99,6 +100,13 @@ ${BUILD_PATH}/%.o: ${SRC_PATH}/%.c ${HEADERS} | ${BUILD_PATH}
 deps:
 	@if test ! -d "${LIBFT_PATH}"; then make get_libft; \
 		else printf "${GREEN}${BOLD}${ROCKET} ${WHITE}${LIBFT_ARC}${GREEN} folder found!${RESET}\n"; fi
+	@make update_modules
+
+update_modules:	## Update modules
+	@echo "[$(CYA)Updating submodules$(D)]"
+	git submodule init
+	git submodule update --recursive --remote
+	@echo "[$(GRN)Submodules successfully updated$(D)]"
 
 get_libft:
 	@printf "${CYAN}${BOLD}${BOOK} Getting Libft..${RESET}\n"
@@ -163,13 +171,14 @@ clean:                       # Clean up object files and temporary build files
 	@printf "${GREEN}${BOLD}${CHECK} Object files cleaned!${RESET}\n"
 
 fclean: clean               # Fully clean up by removing executables and build directories 
-	@printf "${YELLOW}${BOLD}${CLEAN} Removing executable and build files...${RESET}\n"
+	@printf "${YELLOW}${BOLD}${CLEAN} Removing executable, libft.a and build files...${RESET}\n"
 	@${RM} ${NAME}
 	@${RM} ${BUILD_PATH}
 	@${RM} ${EXEC}
+	@${MAKE} ${LIBFT_PATH} fclean
 	@printf "${GREEN}${BOLD}${CHECK} All files cleaned!${RESET}\n"
 
 re: fclean ${NAME}          # Rebuild everything from scratch 
 
 .PHONY: all test clean fclean re norm start_tmux start_tmux_bonus get_libft
-# Declare phony targets 
+# Declare phony targets
