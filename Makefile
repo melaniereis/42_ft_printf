@@ -76,7 +76,7 @@ TMUX = tmux                       # Tmux command for terminal multiplexing
 
 ##  Compilation Rules for Libft  ##
 
-all: ${NAME}                  # Default target: build the ft_printflibft
+all: deps ${NAME}                  # Default target: build the ft_printflibft
 
 ${NAME}: ${BUILD_PATH} ${OBJS} ${LIBFT_ARC}
 	@printf "\n${YELLOW}${BOLD}${BUILD} Assembling ${WHITE}${NAME}${YELLOW}...${RESET}\n"
