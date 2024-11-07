@@ -5,11 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: meferraz <meferraz@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 10:23:14 by meferraz          #+#    #+#             */
-/*   Updated: 2024/11/05 11:30:00 by meferraz         ###   ########.fr       */
+/*   Created: 2024/11/07 11:24:10 by meferraz          #+#    #+#             */
+/*   Updated: 2024/11/07 11:24:15 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./incs/ft_printf.h"
+#include <limits.h>
 
 static int total_tests = 0;
 static int failed_tests = 0;
@@ -38,59 +39,61 @@ int main(void)
     ft_len = ft_printf("Empty string: %s\n", "");
     printf_len = printf("Empty string: %s\n", "");
     check_test(ft_len, printf_len, "Empty string");
-
-    char *null_str = NULL;
-    ft_len = ft_printf("NULL string: %s\n", null_str);
-    printf_len = printf("NULL string: %s\n", null_str);
+    
+    char *str_null = NULL;
+    ft_len = ft_printf("NULL string: %s\n", str_null);
+    printf_len = printf("NULL string: %s\n", str_null);
     check_test(ft_len, printf_len, "NULL string");
 
     ft_len = ft_printf("Normal string: %s\n", "Hello, world!");
     printf_len = printf("Normal string: %s\n", "Hello, world!");
     check_test(ft_len, printf_len, "Normal string");
 
+    ft_len = ft_printf("Very long string: %s\n", "This is a very long string that goes on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on");
+    printf_len = printf("Very long string: %s\n", "This is a very long string that goes on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on");
+    check_test(ft_len, printf_len, "Very long string");
+
     print_header("Character tests");
     ft_len = ft_printf("Normal char: %c\n", 'A');
     printf_len = printf("Normal char: %c\n", 'A');
     check_test(ft_len, printf_len, "Normal char");
 
-    ft_len = ft_printf("Number as char: %c\n", 65);
-    printf_len = printf("Number as char: %c\n", 65);
-    check_test(ft_len, printf_len, "Number as char");
-
     ft_len = ft_printf("Null char: %c\n", 0);
     printf_len = printf("Null char: %c\n", 0);
     check_test(ft_len, printf_len, "Null char");
 
-    print_header("Pointer tests");
-    int n = 42;
-    ft_len = ft_printf("Normal pointer: %p\n", (void *)&n);
-    printf_len = printf("Normal pointer: %p\n", (void *)&n);
-    check_test(ft_len, printf_len, "Normal pointer");
+    ft_len = ft_printf("Non-printable char: %c\n", 31);
+    printf_len = printf("Non-printable char: %c\n", 31);
+    check_test(ft_len, printf_len, "Non-printable char");
 
-    ft_len = ft_printf("NULL pointer: %p\n", NULL);
-    printf_len = printf("NULL pointer: %p\n", NULL);
-    check_test(ft_len, printf_len, "NULL pointer");
+    ft_len = ft_printf("Max char: %c\n", 127);
+    printf_len = printf("Max char: %c\n", 127);
+    check_test(ft_len, printf_len, "Max char");
 
     print_header("Integer tests");
-    ft_len = ft_printf("Zero: %d\n", 0);
-    printf_len = printf("Zero: %d\n", 0);
+    ft_len = ft_printf("Zero: %d %i\n", 0, 0);
+    printf_len = printf("Zero: %d %i\n", 0, 0);
     check_test(ft_len, printf_len, "Zero");
 
-    ft_len = ft_printf("Positive: %d\n", 42);
-    printf_len = printf("Positive: %d\n", 42);
+    ft_len = ft_printf("Positive: %d %i\n", 42, 42);
+    printf_len = printf("Positive: %d %i\n", 42, 42);
     check_test(ft_len, printf_len, "Positive");
 
-    ft_len = ft_printf("Negative: %d\n", -42);
-    printf_len = printf("Negative: %d\n", -42);
+    ft_len = ft_printf("Negative: %d %i\n", -42, -42);
+    printf_len = printf("Negative: %d %i\n", -42, -42);
     check_test(ft_len, printf_len, "Negative");
 
-    ft_len = ft_printf("INT_MAX: %d\n", INT_MAX);
-    printf_len = printf("INT_MAX: %d\n", INT_MAX);
+    ft_len = ft_printf("INT_MAX: %d %i\n", INT_MAX, INT_MAX);
+    printf_len = printf("INT_MAX: %d %i\n", INT_MAX, INT_MAX);
     check_test(ft_len, printf_len, "INT_MAX");
 
-    ft_len = ft_printf("INT_MIN: %d\n", INT_MIN);
-    printf_len = printf("INT_MIN: %d\n", INT_MIN);
+    ft_len = ft_printf("INT_MIN: %d %i\n", INT_MIN, INT_MIN);
+    printf_len = printf("INT_MIN: %d %i\n", INT_MIN, INT_MIN);
     check_test(ft_len, printf_len, "INT_MIN");
+
+    ft_len = ft_printf("Negative zero: %d %i\n", -0, -0);
+    printf_len = printf("Negative zero: %d %i\n", -0, -0);
+    check_test(ft_len, printf_len, "Negative zero");
 
     print_header("Unsigned tests");
     ft_len = ft_printf("Zero: %u\n", 0);
@@ -101,9 +104,13 @@ int main(void)
     printf_len = printf("Positive: %u\n", 42);
     check_test(ft_len, printf_len, "Unsigned Positive");
 
-    ft_len = ft_printf("Large: %u\n", UINT_MAX);
-    printf_len = printf("Large: %u\n", UINT_MAX);
-    check_test(ft_len, printf_len, "Unsigned Large");
+    ft_len = ft_printf("UINT_MAX: %u\n", UINT_MAX);
+    printf_len = printf("UINT_MAX: %u\n", UINT_MAX);
+    check_test(ft_len, printf_len, "UINT_MAX");
+
+    ft_len = ft_printf("Negative as unsigned: %u\n", -1);
+    printf_len = printf("Negative as unsigned: %u\n", -1);
+    check_test(ft_len, printf_len, "Negative as unsigned");
 
     print_header("Hexadecimal tests");
     ft_len = ft_printf("Zero: %x %X\n", 0, 0);
@@ -114,21 +121,73 @@ int main(void)
     printf_len = printf("Normal: %x %X\n", 42, 42);
     check_test(ft_len, printf_len, "Hexadecimal Normal");
 
-    ft_len = ft_printf("Large: %x %X\n", UINT_MAX, UINT_MAX);
-    printf_len = printf("Large: %x %X\n", UINT_MAX, UINT_MAX);
-    check_test(ft_len, printf_len, "Hexadecimal Large");
+    ft_len = ft_printf("UINT_MAX: %x %X\n", UINT_MAX, UINT_MAX);
+    printf_len = printf("UINT_MAX: %x %X\n", UINT_MAX, UINT_MAX);
+    check_test(ft_len, printf_len, "UINT_MAX hex");
+
+    ft_len = ft_printf("Negative as hex: %x %X\n", -1, -1);
+    printf_len = printf("Negative as hex: %x %X\n", -1, -1);
+    check_test(ft_len, printf_len, "Negative as hex");
+
+    print_header("Pointer tests");
+    int num = 42;
+    void *ptr = &num;
+    ft_len = ft_printf("Normal pointer: %p\n", ptr);
+    printf_len = printf("Normal pointer: %p\n", ptr);
+    check_test(ft_len, printf_len, "Normal pointer");
+
+    ft_len = ft_printf("NULL pointer: %p\n", NULL);
+    printf_len = printf("NULL pointer: %p\n", NULL);
+    check_test(ft_len, printf_len, "NULL pointer");
+
+    ft_len = ft_printf("Zero as pointer: %p\n", (void *)0);
+    printf_len = printf("Zero as pointer: %p\n", (void *)0);
+    check_test(ft_len, printf_len, "Zero as pointer");
+
+    ft_len = ft_printf("Function pointer: %p\n", (void *)&main);
+    printf_len = printf("Function pointer: %p\n", (void *)&main);
+    check_test(ft_len, printf_len, "Function pointer");
+
+    char arr[10];
+    ft_len = ft_printf("Array pointer: %p\n", (void *)arr);
+    printf_len = printf("Array pointer: %p\n", (void *)arr);
+    check_test(ft_len, printf_len, "Array pointer");
+
+    ft_len = ft_printf("Large address: %p\n", (void *)-1);
+    printf_len = printf("Large address: %p\n", (void *)-1);
+    check_test(ft_len, printf_len, "Large address");
+
+    ft_len = ft_printf("Multiple pointers: %p %p %p\n", ptr, (void *)0, (void *)-1);
+    printf_len = printf("Multiple pointers: %p %p %p\n", ptr, (void *)0, (void *)-1);
+    check_test(ft_len, printf_len, "Multiple pointers");
 
     print_header("Percent sign test");
     ft_len = ft_printf("Percent: %%\n");
     printf_len = printf("Percent: %%\n");
     check_test(ft_len, printf_len, "Percent sign");
 
-    print_header("Mixed test");
+    ft_len = ft_printf("Multiple percent: %%%%%%\n");
+    printf_len = printf("Multiple percent: %%%%%%\n");
+    check_test(ft_len, printf_len, "Multiple percent signs");
+
+    print_header("Mixed and edge cases");
     ft_len = ft_printf("Mixed: %s %c %p %d %i %u %x %X %%\n", 
-        "test", 'Z', (void *)42, 42, -42, 42, 42, 42);
+        "test", 'Z', ptr, 42, -42, 42, 42, 42);
     printf_len = printf("Mixed: %s %c %p %d %i %u %x %X %%\n", 
-        "test", 'Z', (void *)42, 42, -42, 42, 42, 42);
+        "test", 'Z', ptr, 42, -42, 42, 42, 42);
     check_test(ft_len, printf_len, "Mixed format");
+
+    ft_len = ft_printf("Complex mix: %d%x%p%s%c%u%%\n", INT_MIN, UINT_MAX, NULL, "test", 'Z', UINT_MAX);
+    printf_len = printf("Complex mix: %d%x%p%s%c%u%%\n", INT_MIN, UINT_MAX, NULL, "test", 'Z', UINT_MAX);
+    check_test(ft_len, printf_len, "Complex mixed format");
+
+    ft_len = ft_printf("%d%i%u%x%X%c%s%%\n", INT_MIN, INT_MAX, UINT_MAX, 0, UINT_MAX, 0, "");
+    printf_len = printf("%d%i%u%x%X%c%s%%\n", INT_MIN, INT_MAX, UINT_MAX, 0, UINT_MAX, 0, "");
+    check_test(ft_len, printf_len, "All types mixed");
+
+    ft_len = ft_printf("%c%c%c%c%c\n", 0, 'a', 127, 128, 255);
+    printf_len = printf("%c%c%c%c%c\n", 0, 'a', 127, 128, 255);
+    check_test(ft_len, printf_len, "Char edge cases");
 
     // Summary
     ft_printf("\n%s=== Summary ===%s\n", BHBLU, RESET);
