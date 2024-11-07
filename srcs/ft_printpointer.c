@@ -19,7 +19,7 @@ void	ft_printpointer(void *ptr, int *len)
 	if (ptr == NULL)
 	{
 		ft_printstring("(nil)", len);
-		return;
+		return ;
 	}
 	address = (unsigned long long)ptr;
 	ft_printstring("0x", len);

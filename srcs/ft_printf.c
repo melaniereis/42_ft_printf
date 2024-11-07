@@ -28,7 +28,6 @@ static void	ft_printfcheck(char s, va_list *args, int *len)
 		ft_printhexa(va_arg(*args, unsigned int), s, len);
 	else if (s == '%')
 		ft_printchar('%', len);
-	// Remove the else clause as it's not needed
 }
 
 int	ft_printf(const char *str, ...)
